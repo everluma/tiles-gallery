@@ -1,0 +1,58 @@
+[
+  {
+    "id": "tile_001",
+    "title": "Ceramic Blue Tile",
+    "description": "Premium ceramic tile with blue glaze finish",
+    "image": "https://i.ibb.co/7NLCB8h/tile1.jpg",
+    "category": "ceramic",
+    "price": 45.99,
+    "currency": "USD",
+    "dimensions": "60x60 cm",
+    "material": "Ceramic",
+    "inStock": true,
+    "creator": "Modern Studio",
+    "tags": ["Minimalist", "Blue"]
+  },
+  {
+    "id": "tile_002",
+    "title": "Luxury Marble Tile",
+    "description": "Elegant marble style wall tile",
+    "image": "https://i.ibb.co/hWr0H6W/tile2.jpg",
+    "category": "marble",
+    "price": 70.99,
+    "currency": "USD",
+    "dimensions": "80x80 cm",
+    "material": "Marble",
+    "inStock": true,
+    "creator": "Tile House",
+    "tags": ["Luxury", "White"]
+  },
+  {
+    "id": "tile_003",
+    "title": "Dark Pattern Tile",
+    "description": "Modern dark aesthetic tile",
+    "image": "https://i.ibb.co/wK7m6x1/tile3.jpg",
+    "category": "modern",
+    "price": 65.99,
+    "currency": "USD",
+    "dimensions": "50x50 cm",
+    "material": "Stone",
+    "inStock": true,
+    "creator": "Aesthetic Hub",
+    "tags": ["Dark", "Pattern"]
+  },
+  {
+    "id": "tile_004",
+    "title": "Golden Texture Tile",
+    "description": "Golden premium artistic tile",
+    "image": "https://i.ibb.co/jH8Qf3m/tile4.jpg",
+    "category": "premium",
+    "price": 99.99,
+    "currency": "USD",
+    "dimensions": "90x90 cm",
+    "material": "Granite",
+    "inStock": true,
+    "creator": "Luxury Design",
+    "tags": ["Golden", "Premium"]
+  }
+]
