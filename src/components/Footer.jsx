@@ -12,6 +12,7 @@ const Footer = () => {
         <a>Instagram</a>
         <a>LinkedIn</a>
       </div>
+      
     </footer>
   );
 };
