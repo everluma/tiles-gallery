@@ -47,9 +47,11 @@ const Login = () => {
                 placeholder="Password"
                 className="w-full bg-[#1B1B1B] border border-gray-700 py-4 px-5 text-white focus:outline-none focus:border-[#B88E2F] transition-all rounded-sm placeholder:text-gray-600 text-sm"
               />
+
+              {/* forgote password section
               <div className="text-right mt-2">
                 <Link href="#" className="text-[10px] uppercase tracking-widest text-gray-500 hover:text-[#B88E2F]">Forgot Password?</Link>
-              </div>
+              </div> */}
             </div>
 
             {/* Login Button */}
@@ -60,14 +62,14 @@ const Login = () => {
             {/* Divider */}
             <div className="flex items-center gap-4 py-2">
               <div className="flex-1 h-[1px] bg-gray-800"></div>
-              <span className="text-gray-600 text-[10px] uppercase tracking-widest font-bold">Or Continue With</span>
+              <span className="text-gray-600 text-[10px] uppercase tracking-widest font-bold">Or</span>
               <div className="flex-1 h-[1px] bg-gray-800"></div>
             </div>
 
             {/* Google Login */}
             <button className="w-full border border-gray-700 hover:bg-white hover:text-black text-gray-300 py-4 flex items-center justify-center gap-3 transition-all font-bold uppercase tracking-widest text-[10px]">
               <FaGoogle className="text-[#B88E2F]" />
-              Google Authentication
+              Login With Google
             </button>
           </div>
 
