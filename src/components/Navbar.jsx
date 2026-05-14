@@ -3,11 +3,16 @@
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: session } = authClient.useSession();
+  const router = useRouter();
+
+  const { data: session, isPending } = authClient.useSession();
+
+  if (isPending) return null;
 
   return (
     <nav className="bg-[#1B1B1B] text-white px-6 py-4 shadow-lg border-b border-gray-800 sticky top-0 z-[100]">
@@ -57,6 +62,8 @@ const Navbar = () => {
       <button
         onClick={async () => {
           await authClient.signOut();
+          router.refresh();
+         router.push("/");
         }}
         className="bg-[#B88E2F] hover:bg-[#a07b28] text-white  px-4 py-2 rounded text-xs font-bold uppercase"
       >
@@ -65,12 +72,29 @@ const Navbar = () => {
     </>
   ) : (
     <>
-      <Link
-        href="/login"
-        className="hidden sm:block text-[#B88E2F] font-bold uppercase text-xs tracking-widest hover:text-white transition-colors"
-      >
-        Login
-      </Link>
+     {session?.user ? (
+  <button
+    onClick={async () => {
+      await authClient.signOut();
+      router.refresh();
+      router.push("/");
+      setIsOpen(false);
+    }}
+    className="text-[#B88E2F] font-bold py-2 border-t border-gray-800 pt-4"
+  >
+    Logout
+  </button>
+) : (
+  <>
+    <Link
+      href="/login"
+      onClick={() => setIsOpen(false)}
+      className="text-[#B88E2F] font-bold py-2 border-t border-gray-800 pt-4"
+    >
+      Login
+    </Link>
+  </>
+)}
 
       <Link
         href="/register"

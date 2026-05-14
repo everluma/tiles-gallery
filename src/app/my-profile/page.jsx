@@ -2,13 +2,25 @@
 
 import Link from "next/link";
 import { FaEdit, FaEnvelope, FaUserCircle, FaCamera } from "react-icons/fa";
-
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const MyProfile = () => {
+
+  const router = useRouter();
+  const { data: session, isPending } = authClient.useSession();
  
+  useEffect(() => {
+  if (!isPending && !session?.user) {
+    router.push("/login");
+  }
+}, [session, isPending, router]);
+
+if (isPending) return null;
 
 
-  const userPhoto = "https://i.ibb.co/ZYW3VTp/brown-brim.png";
+  const userPhoto = session?.user?.image || "https://i.ibb.co/ZYW3VTp/brown-brim.png";
 
   return (
     <div className="min-h-screen bg-[#1B1B1B] text-white py-16 px-6">
@@ -22,6 +34,7 @@ const MyProfile = () => {
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#B88E2F] opacity-10 rounded-bl-full"></div>
           
           <div className="p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
+
             {/* Image Container  */}
             <div className="relative group">
               <div className="w-40 h-40 md:w-48 md:h-48 rounded-full border-2 border-[#B88E2F] p-1.5 overflow-hidden">
@@ -40,10 +53,16 @@ const MyProfile = () => {
             {/* User Basic Info */}
             <div className="text-center md:text-left space-y-4">
               <span className="text-[#B88E2F] uppercase tracking-[0.3em] text-xs font-bold">Verified Member</span>
-              <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">Monisha</h1>
+
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
+             {session?.user?.name || "Guest User"}
+             </h1>
+
               <div className="flex items-center justify-center md:justify-start gap-2 text-gray-400">
                 <FaEnvelope className="text-[#B88E2F]" />
-                <span className="text-sm font-light">monisha@tileverse.com</span>
+                <span className="text-sm font-light">
+                {session?.user?.email || "No email found"}
+               </span>
               </div>
               
               <Link 
@@ -82,7 +101,9 @@ const MyProfile = () => {
                 <span className="text-gray-500 uppercase text-xs tracking-widest flex items-center gap-2">
                   <FaUserCircle /> Full Name
                 </span>
-                <span className="text-white font-medium">Farjana Aktar Monisha</span>
+                <span className="text-white font-medium">
+              {session?.user?.name}
+               </span>
               </div>
               <div className="flex justify-between border-b border-gray-800 pb-4">
                 <span className="text-gray-500 uppercase text-xs tracking-widest">Joined On</span>
