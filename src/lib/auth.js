@@ -1,17 +1,20 @@
-
 import { betterAuth } from "better-auth";
-import { mongodbAdapter } from "better-auth/adapters/mongodb";
+import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import clientPromise from "./db";
 
+const client = await clientPromise;
+
 export const auth = betterAuth({
-    database: mongodbAdapter(clientPromise),
-    emailAndPassword: {  
-        enabled: true
+  database: mongodbAdapter(client.db("TileVerse")),
+
+  emailAndPassword: {
+    enabled: true,
+  },
+
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
-    socialProviders: {
-        google: {
-            clientId: process.env.GOOGLE_CLIENT_ID || "placeholder",
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET || "placeholder",
-        }
-    }
+  },
 });
