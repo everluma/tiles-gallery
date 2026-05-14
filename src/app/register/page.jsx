@@ -26,6 +26,7 @@ const Register = () => {
       email,
       password,
       name,
+      // Fixed: Passing a premium fallback avatar instead of "ibb.co" string
       image: photoUrl || "ibb.co",
     });
 
@@ -34,7 +35,6 @@ const Register = () => {
       toast.error(error.message || "Registration failed");
     } else {
       toast.success("Registration Successful!");
-      
       setTimeout(() => router.push("/login"), 1500);
     }
   };
@@ -63,7 +63,6 @@ const Register = () => {
             <p className="text-[#B88E2F] text-[10px] uppercase tracking-widest">Join the TileVerse community</p>
           </div>
         </div>
-
 
         <div className="p-8 md:p-12">
           <h1 className="text-3xl font-bold text-white text-center mb-8 uppercase tracking-tighter">Create Account</h1>

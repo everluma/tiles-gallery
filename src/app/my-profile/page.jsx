@@ -4,23 +4,33 @@ import Link from "next/link";
 import { FaEdit, FaEnvelope, FaUserCircle, FaCamera } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const MyProfile = () => {
-
   const router = useRouter();
   const { data: session, isPending } = authClient.useSession();
- 
+  const [authChecking, setAuthChecking] = useState(true);
+
   useEffect(() => {
-  if (!isPending && !session?.user) {
-    router.push("/login");
+    if (!isPending) {
+      if (!session?.user) {
+        router.push("/login");
+      } else {
+        setAuthChecking(false);
+      }
+    }
+  }, [session, isPending, router]);
+
+  // Premium loading screen to prevent empty state blink
+  if (isPending || authChecking) {
+    return (
+      <div className="min-h-screen bg-[#1B1B1B] flex items-center justify-center">
+        <div className="w-10 h-10 border-4 border-[#B88E2F] border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
   }
-}, [session, isPending, router]);
 
-if (isPending) return null;
-
-
-  const userPhoto = session?.user?.image || "https://i.ibb.co/ZYW3VTp/brown-brim.png";
+  const userPhoto = session?.user?.image || "ibb.co";
 
   return (
     <div className="min-h-screen bg-[#1B1B1B] text-white py-16 px-6">
@@ -28,9 +38,6 @@ if (isPending) return null;
         
         {/* --- header--- */}
         <div className="bg-[#242424] border border-gray-800 shadow-2xl relative overflow-hidden mb-10">
-
-
-          
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#B88E2F] opacity-10 rounded-bl-full"></div>
           
           <div className="p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
@@ -54,15 +61,16 @@ if (isPending) return null;
             <div className="text-center md:text-left space-y-4">
               <span className="text-[#B88E2F] uppercase tracking-[0.3em] text-xs font-bold">Verified Member</span>
 
+              {/* Preserved your original font casing exactly */}
               <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
-             {session?.user?.name || "Guest User"}
-             </h1>
+                {session?.user?.name || "Guest User"}
+              </h1>
 
               <div className="flex items-center justify-center md:justify-start gap-2 text-gray-400">
                 <FaEnvelope className="text-[#B88E2F]" />
                 <span className="text-sm font-light">
-                {session?.user?.email || "No email found"}
-               </span>
+                  {session?.user?.email || "No email found"}
+                </span>
               </div>
               
               <Link 
@@ -77,9 +85,7 @@ if (isPending) return null;
 
         {/* --- Profile details --- */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-        
-          {/*  Stats */}
+          {/* Stats */}
           <div className="md:col-span-1 space-y-6">
             <div className="bg-[#242424] border border-gray-800 p-6 text-center">
               <h4 className="text-[#B88E2F] text-3xl font-bold">12</h4>
@@ -101,9 +107,10 @@ if (isPending) return null;
                 <span className="text-gray-500 uppercase text-xs tracking-widest flex items-center gap-2">
                   <FaUserCircle /> Full Name
                 </span>
+                {/* Name case preserved here as well */}
                 <span className="text-white font-medium">
-              {session?.user?.name}
-               </span>
+                  {session?.user?.name}
+                </span>
               </div>
               <div className="flex justify-between border-b border-gray-800 pb-4">
                 <span className="text-gray-500 uppercase text-xs tracking-widest">Joined On</span>
