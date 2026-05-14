@@ -1,20 +1,50 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { useEffect } from "react";
 import tiles from "@/data/tiles.json";
 import Link from "next/link";
 
 const TileDetails = () => {
-  const { id } = useParams();
-  const tile = tiles.find((t) => t.id.toString() === id);
 
+  const router = useRouter();
+
+  const { data: session, isPending } = authClient.useSession();
+
+  const { id } = useParams();
+  useEffect(() => {
+  if (!isPending && !session?.user) {
+    router.push("/login");
+  }
+  }, [session, isPending, router]);
+
+  if (isPending) return null;
+
+
+
+  const tile = tiles.find((t) => String(t.id) === String(id));
+
+  
   if (!tile) {
     return (
-      <div className="min-h-screen bg-[#1B1B1B] text-white flex flex-col items-center justify-center">
-        <h2 className="text-2xl font-bold text-[#B88E2F]">Tile Not Found!</h2>
-        <Link href="/all-tiles" className="mt-4 underline">Return to Gallery</Link>
-      </div>
-    );
+  <div className="min-h-screen bg-[#1B1B1B] text-white flex flex-col items-center justify-center px-6">
+    <h2 className="text-4xl font-bold text-[#B88E2F] mb-4">
+      Tile Not Found
+    </h2>
+
+    <p className="text-gray-500 mb-8 text-center max-w-md">
+      The tile you are searching for does not exist or may have been removed.
+    </p>
+
+    <Link
+      href="/all-tiles"
+      className="border border-[#B88E2F] px-6 py-3 uppercase tracking-widest text-xs hover:bg-[#B88E2F] transition-all"
+    >
+      Return to Gallery
+    </Link>
+  </div>
+);
   }
 
   return (
