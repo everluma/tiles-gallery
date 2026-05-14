@@ -1,10 +1,13 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useState } from "react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { data: session } = authClient.useSession();
 
   return (
     <nav className="bg-[#1B1B1B] text-white px-6 py-4 shadow-lg border-b border-gray-800 sticky top-0 z-[100]">
@@ -12,6 +15,7 @@ const Navbar = () => {
         
         {/* --- logo for mobile --- */}
         <div className="flex items-center gap-4">
+
           {/* Mobile menu icon) */}
           <button 
             className="lg:hidden text-[#B88E2F]" 
@@ -35,18 +39,48 @@ const Navbar = () => {
           <Link href="/my-profile" className="hover:text-[#B88E2F] transition-colors font-medium tracking-wide">My Profile</Link>
         </div>
 
-        {/* --- Button side --- */}
-        <div className="flex items-center gap-4">
-          <Link href="/login" className="hidden sm:block text-[#B88E2F] font-bold uppercase text-xs tracking-widest hover:text-white transition-colors">
-            Login
-          </Link>
-          <Link 
-            href="/register" 
-            className="bg-[#B88E2F] hover:bg-[#a07b28] text-white px-5 py-2.5 rounded-sm text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all shadow-md"
-          >
-            Register Now
-          </Link>
-        </div>
+        
+       {/* --- Button side --- */}
+<div className="flex items-center gap-4">
+  {session?.user ? (
+    <>
+      <div className="flex items-center gap-2">
+        <img
+          src={session.user.image || "https://i.ibb.co/4pDNDk1/avatar.png"}
+          className="w-10 h-10 rounded-full border border-[#B88E2F]"
+        />
+        <span className="hidden md:block text-sm font-medium">
+          {session.user.name}
+        </span>
+      </div>
+
+      <button
+        onClick={async () => {
+          await authClient.signOut();
+        }}
+        className="bg-[#B88E2F] hover:bg-[#a07b28] text-white  px-4 py-2 rounded text-xs font-bold uppercase"
+      >
+        Logout
+      </button>
+    </>
+  ) : (
+    <>
+      <Link
+        href="/login"
+        className="hidden sm:block text-[#B88E2F] font-bold uppercase text-xs tracking-widest hover:text-white transition-colors"
+      >
+        Login
+      </Link>
+
+      <Link
+        href="/register"
+        className="bg-[#B88E2F] hover:bg-[#a07b28] text-white px-5 py-2.5 rounded-sm text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all shadow-md"
+      >
+        Register Now
+      </Link>
+    </>
+  )}
+</div>
       </div>
 
       {/* --- mobile Dropdown menu --- */}
