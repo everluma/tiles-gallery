@@ -2,11 +2,21 @@
 
 import Link from "next/link";
 import Marquee from "react-fast-marquee";
-import tiles from "@/data/tiles.json";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  // code for show only 4 tiles card
-  const featuredTiles = tiles?.slice(0, 4);
+  const [featuredTiles, setFeaturedTiles] = useState([]);
+
+  useEffect(() => {
+    fetch("/data/tiles.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setFeaturedTiles(data.slice(0, 4));
+      });
+  }, []);
+
+  // Extracting first dynamic tile name for the official marquee requirement
+  const dynamicTileName = featuredTiles[0]?.title || "Ceramic Flowral Tile";
 
   return (
     <div className="bg-[#1B1B1B] min-h-screen text-white">
@@ -19,11 +29,10 @@ export default function Home() {
           style={{
             backgroundImage: "url('/images/masic-theme.jpeg')",
             backgroundSize: "cover",
-            backgroundPosition: "center 40%", // 
+            backgroundPosition: "center 40%", 
             backgroundRepeat: "no-repeat"
           }}
         >
-         
           <div className="absolute inset-0 bg-black/50 lg:bg-black/50"></div>
         </div>
 
@@ -39,11 +48,12 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mt-10">
+              {/* Exact Match Requirement: Text converted to "Browse Now" */}
               <Link 
                 href="/all-tiles" 
                 className="w-full sm:w-auto px-10 py-4 bg-[#B88E2F] hover:bg-[#a07b28] text-white font-bold uppercase tracking-widest transition-all duration-300 rounded-sm shadow-xl"
               >
-                Browse Collection
+                Browse Now
               </Link>
               
               <Link 
@@ -56,16 +66,15 @@ export default function Home() {
           </div>
         </div>
         
-        
         <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#1B1B1B] to-transparent z-10"></div>
       </div>
 
-      {/* --- Announce --- */}
+      {/* --- Requirement Match: scrolling line with dynamic tile name --- */}
       <div className="border-y border-gray-800">
         <Marquee className="bg-[#141414] text-[#B88E2F] py-4 font-medium tracking-widest uppercase text-sm">
-          <span className="mx-10">✦ New Arrivals</span>
+          <span className="mx-10">✦ New Arrivals: {dynamicTileName}</span>
           <span className="mx-10">✦ Weekly Feature: Modern Geometric Patterns</span>
-          <span className="mx-10">✦ Join the TileVerse Community</span>
+          <span className="mx-10">✦ Join the Community...</span>
         </Marquee>
       </div>
 
@@ -83,7 +92,6 @@ export default function Home() {
           </Link>
         </div>
 
-        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {featuredTiles && featuredTiles.map((tile) => (
             <div 
