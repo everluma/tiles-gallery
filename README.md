@@ -40,9 +40,11 @@ The purpose of this project is to create a visually elegant tile gallery platfor
 _Add screenshots here for better presentation_
 
 ```md
-![Home Page](./public/home.png)
-![Gallery Page](./public/gallery.png)
-![Profile Page](./public/profile.png)
+![Home Page](home-page.png)
+![Gallery Page](all-tiles.png)
+![Profile Page](.png)
+![loging-page] (login-page.png)
+![details-page](details.png)
 ````
 
 ---
