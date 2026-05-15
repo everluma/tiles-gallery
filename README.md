@@ -1,5 +1,5 @@
-````md
-# TileVerse
+
+# 🧱 TileVerse
 
 TileVerse is a modern and responsive tile gallery web application built with Next.js.  
 Users can explore premium tile collections, search tiles, view detailed information, authenticate securely, and manage their profile.
@@ -8,9 +8,7 @@ Users can explore premium tile collections, search tiles, view detailed informat
 
 ## 🌐 Live Website
 
-Add your live link here:
-
-https://your-live-link.vercel.app
+👉 https://tiles-gallery-ten-orpin.vercel.app
 
 ---
 
@@ -25,28 +23,40 @@ The purpose of this project is to create a visually elegant tile gallery platfor
 - 🔐 Authentication system using BetterAuth
 - 🔑 Google Login support
 - 👤 User profile management
-- ✏️ Update profile information
+- ✏️ Update profile information (name & image)
 - 🔒 Private route protection
 - 🧱 Dynamic tile details page
 - 🔍 Search functionality for tiles
-- 📱 Fully responsive design
-- 🎨 Unique dark luxury UI design
+- 📱 Fully responsive design (mobile/tablet/desktop)
+- 🎨 Modern UI design with Tailwind + DaisyUI
 - ⚡ Fast performance with Next.js App Router
 - 🚫 Custom 404 Not Found page
 - ⏳ Loading state implementation
 
 ---
 
+## 🖼️ Screenshots
+
+_Add screenshots here for better presentation_
+
+```md
+![Home Page](./public/home.png)
+![Gallery Page](./public/gallery.png)
+![Profile Page](./public/profile.png)
+````
+
+---
+
 ## 🛠️ Technologies Used
 
-- Next.js 16 (App Router)
-- React
-- Tailwind CSS
-- DaisyUI
-- BetterAuth
-- MongoDB
-- React Icons
-- React Hot Toast
+* Next.js (App Router)
+* React
+* Tailwind CSS
+* DaisyUI
+* BetterAuth
+* MongoDB
+* React Icons
+* React Hot Toast
 
 ---
 
@@ -58,7 +68,7 @@ npm install mongodb
 npm install react-icons
 npm install react-hot-toast
 npm install daisyui
-````
+```
 
 ---
 
@@ -67,12 +77,12 @@ npm install daisyui
 Create a `.env.local` file in the root directory and add:
 
 ```env
-MONGODB_URI=your_mongodb_uri
-
+MONGODB_URI=your_mongodb_uri_here
+BETTER_AUTH_SECRET=your_secret_key_here
 BETTER_AUTH_URL=http://localhost:3000
 
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
 ```
 
 ---
@@ -82,7 +92,7 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 Clone the project:
 
 ```bash
-git clone https://github.com/your-username/tileverse.git
+git clone https://github.com/everluma/tileverse.git
 ```
 
 Go to the project directory:
@@ -120,7 +130,16 @@ src/
 
 ## 👨‍💻 Author
 
-Developed by Farjana Aktar Monisha
+Developed by **Farjana Aktar Monisha**
 
-```
-```
+---
+
+## ⚡ Notes
+
+* Fully responsive design implemented
+* Private routes protected using authentication
+* Environment variables properly secured
+* Ready for production deployment
+
+````
+
